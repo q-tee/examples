@@ -1,0 +1,11 @@
+# default behavior to automatically normalize line endings
+* text eol=lf
+*.sln text eol=crlf
+*.vcxproj text eol=crlf
+*.vcxproj.* text eol=crlf
+*.build.props text eol=crlf
+
+# default behavior for binary files
+*.jpg binary
+*.png binary
+*.gif binary

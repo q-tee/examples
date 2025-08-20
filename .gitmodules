@@ -1,0 +1,6 @@
+[submodule "dependencies/q-tee/common"]
+	path = dependencies/q-tee/common
+	url = https://github.com/q-tee/common
+[submodule "dependencies/q-tee/smbios"]
+	path = dependencies/q-tee/smbios
+	url = https://github.com/q-tee/smbios
