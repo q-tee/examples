@@ -11,10 +11,8 @@ example projects demonstrating work with **q-tee** libraries.
 1. open terminal in repository root directory
 2. create the project and build
 ```console
-user@machine:~/examples$ mkdir intermediate
-user@machine:~/examples$ cd intermediate
-user@machine:~/examples/intermediate$ cmake .. -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release
-user@machine:~/examples/intermediate$ make
+user@machine:~/examples$ cmake -B intermediate -D CMAKE_BUILD_TYPE=Release
+user@machine:~/examples$ cmake --build intermediate --config=Release
 ```
 3. output files will be written to the `build` directory
 
