@@ -1,0 +1,28 @@
+name: linux
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  cmake:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        compiler-c: [gcc, clang]
+        include:
+        - compiler-c: gcc
+          compiler-cxx: g++
+        - compiler-c: clang
+          compiler-cxx: clang++
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: Compiler version
+      run: |
+        ${{ matrix.compiler-c }} --version
+        ${{ matrix.compiler-cxx }} --version
+    - name: Configure project
+      run: cmake -B intermediate -D CMAKE_BUILD_TYPE=${{ matrix.configuration }} -D CMAKE_C_COMPILER=${{ matrix.compiler-c }} -D CMAKE_CXX_COMPILER=${{ matrix.compiler-cxx }}
+    - name: Build
+      run: cmake --build intermediate --config=${{ matrix.configuration }}

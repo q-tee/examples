@@ -1,0 +1,33 @@
+name: windows
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  msbuild:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        toolset: [v143, ClangCL]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - uses: microsoft/setup-msbuild@v2
+    - name: Build
+      run: msbuild examples.sln /p:Platform=x64 /p:Configuration=${{ matrix.configuration }} /p:PlatformToolset=${{ matrix.toolset }}
+  cmake:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        toolset: [v143, ClangCL]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - uses: microsoft/setup-msbuild@v2
+    - name: Configure project
+      run: cmake -B intermediate -D CMAKE_BUILD_TYPE=${{ matrix.configuration }} -T ${{ matrix.toolset }}
+    - name: Build
+      run: cmake --build intermediate --config=${{ matrix.configuration }}
